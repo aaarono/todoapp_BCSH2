@@ -1,0 +1,61 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\SashKO\\Documents\\GitHub\\todoapp_BCSH2\\ToDoApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{43FE2620-56E7-41F0-B37F-15C936B2E6FE}|ToDoApp\\ToDoApp.csproj|c:\\users\\sashko\\documents\\github\\todoapp_bcsh2\\todoapp\\todoapp\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{43FE2620-56E7-41F0-B37F-15C936B2E6FE}|ToDoApp\\ToDoApp.csproj|solutionrelative:todoapp\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43FE2620-56E7-41F0-B37F-15C936B2E6FE}|ToDoApp\\ToDoApp.csproj|c:\\users\\sashko\\documents\\github\\todoapp_bcsh2\\todoapp\\todoapp\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43FE2620-56E7-41F0-B37F-15C936B2E6FE}|ToDoApp\\ToDoApp.csproj|solutionrelative:todoapp\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\SashKO\\Documents\\GitHub\\todoapp_BCSH2\\ToDoApp\\ToDoApp\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "ToDoApp\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\SashKO\\Documents\\GitHub\\todoapp_BCSH2\\ToDoApp\\ToDoApp\\MainWindow.xaml",
+              "RelativeToolTip": "ToDoApp\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-10-14T13:11:46.443Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\SashKO\\Documents\\GitHub\\todoapp_BCSH2\\ToDoApp\\ToDoApp\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "ToDoApp\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\SashKO\\Documents\\GitHub\\todoapp_BCSH2\\ToDoApp\\ToDoApp\\MainWindow.xaml.cs",
+              "RelativeToolTip": "ToDoApp\\MainWindow.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T13:11:45.027Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

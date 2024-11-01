@@ -15,13 +15,23 @@ using System.Windows.Shapes;
 namespace ToDoApp.Views
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for InputDialog.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class InputDialog : Window
     {
-        public Window1()
+        public string ResponseText { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
+
+        public InputDialog(string message)
         {
             InitializeComponent();
+            Message = message;
+            DataContext = this;
+        }
+
+        private void OK_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
         }
     }
 }

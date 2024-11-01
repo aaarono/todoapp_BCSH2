@@ -7,45 +7,48 @@ namespace ToDoApp.Services
     {
         private static readonly string connectionString = "Data Source=todoapp.db";
 
-        public static User? AuthenticateUser(string? username, string? password)
+        public static async Task<User?> AuthenticateUserAsync(string? username, string? password)
         {
             using (var connection = new SQLiteConnection(connectionString))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 var command = connection.CreateCommand();
-                command.CommandText = "SELECT * FROM Users WHERE Username = @username AND Password = @password";
+                command.CommandText = "SELECT UserId, Username, Password FROM Users WHERE Username = @username";
                 command.Parameters.AddWithValue("@username", username);
-                command.Parameters.AddWithValue("@password", password);
 
-                using (var reader = command.ExecuteReader())
+                using (var reader = await command.ExecuteReaderAsync())
                 {
-                    if (reader.Read())
+                    if (await reader.ReadAsync())
                     {
-                        return new User
+                        var savedPasswordHash = reader.GetString(2);
+                        if (SecurityHelper.VerifyPassword(password!, savedPasswordHash))
                         {
-                            UserId = reader.GetInt32(0),
-                            Username = reader.GetString(1),
-                            Password = reader.GetString(2)
-                        };
+                            return new User
+                            {
+                                UserId = reader.GetInt32(0),
+                                Username = reader.GetString(1)
+                            };
+                        }
                     }
                 }
             }
             return null;
         }
 
-        public static bool RegisterUser(string username, string password)
+        public static async Task<bool> RegisterUserAsync(string username, string password)
         {
             using (var connection = new SQLiteConnection(connectionString))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 var command = connection.CreateCommand();
                 command.CommandText = "INSERT INTO Users (Username, Password) VALUES (@username, @password)";
                 command.Parameters.AddWithValue("@username", username);
-                command.Parameters.AddWithValue("@password", password);
+                var hashedPassword = SecurityHelper.HashPassword(password);
+                command.Parameters.AddWithValue("@password", hashedPassword);
 
                 try
                 {
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
                     return true;
                 }
                 catch

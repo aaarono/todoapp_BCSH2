@@ -21,13 +21,19 @@
 
         <!-- Панель задач -->
         <StackPanel Grid.Column="1">
-            <TextBlock Text="All Tasks" FontSize="20" Margin="10"/>
+            <TextBlock Text="Tasks" FontSize="20" Margin="10"/>
             <ListBox ItemsSource="{Binding Tasks}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <CheckBox Content="{Binding TaskName}" IsChecked="{Binding IsCompleted, Mode=TwoWay}"
-                                  Command="{Binding DataContext.CompleteTaskCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                  CommandParameter="{Binding}" />
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Content="{Binding TaskName}" IsChecked="{Binding IsCompleted, Mode=TwoWay}"
+                                      Command="{Binding DataContext.CompleteTaskCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                      CommandParameter="{Binding}" />
+                            <Button Content="Edit" Command="{Binding DataContext.EditTaskCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                    CommandParameter="{Binding}" Margin="5,0"/>
+                            <Button Content="Delete" Command="{Binding DataContext.DeleteTaskCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                    CommandParameter="{Binding}" Margin="5,0"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

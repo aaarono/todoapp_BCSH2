@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\SashKO\Desktop\ToDoApp\todoapp_BCSH2\ToDoApp\App.xaml
-3-426745043
+3727956147
 
-161168140304
+171548523143
 203-1133638774
-Views\LoginWindow.xaml;Views\MainWindow.xaml;Views\Window1.xaml;
+Views\InputDialog.xaml;Views\LoginWindow.xaml;Views\MainWindow.xaml;
 
 False
 

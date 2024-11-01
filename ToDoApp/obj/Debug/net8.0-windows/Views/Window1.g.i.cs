@@ -53,7 +53,7 @@ namespace ToDoApp.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ToDoApp;V1.0.0.0;component/views/window1.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ToDoApp;component/views/window1.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\Window1.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

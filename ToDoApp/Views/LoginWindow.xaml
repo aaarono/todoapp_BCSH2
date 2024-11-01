@@ -9,27 +9,14 @@
     <Grid Background="Black">
         <TextBlock Text="ToDoApp" FontSize="30" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0"/>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <!-- Placeholder for TextBox (Username) -->
-            <TextBox Width="200" Margin="0,5" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}">
-                <TextBox.Style>
-                    <Style TargetType="TextBox">
-                        <Setter Property="Foreground" Value="Gray" />
-                        <Setter Property="Text" Value="Login" />
-                        <Style.Triggers>
-                            <Trigger Property="Text" Value="">
-                                <Setter Property="Foreground" Value="LightGray" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-            </TextBox>
+            <TextBox Width="200" Margin="0,5" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
 
-            <!-- PasswordBox without direct binding to Password -->
-            <PasswordBox Width="200" Margin="0,5" Name="PasswordBox" PasswordChanged="PasswordBox_PasswordChanged" />
+            <!-- Удаляем обработчик события PasswordChanged -->
+            <PasswordBox Width="200" Margin="0,5" Name="PasswordBox" />
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Sign In" Width="80" Margin="5" Command="{Binding LoginCommand}" />
-                <Button Content="Sign Up" Width="80" Margin="5" Command="{Binding RegisterCommand}" />
+                <Button Content="Sign In" Width="80" Margin="5" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=PasswordBox}" />
+                <Button Content="Sign Up" Width="80" Margin="5" Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=PasswordBox}" />
             </StackPanel>
         </StackPanel>
     </Grid>

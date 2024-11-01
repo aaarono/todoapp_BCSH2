@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Threading.Tasks;
 using ToDoApp.Models;
 
 namespace ToDoApp.Services
@@ -8,19 +9,19 @@ namespace ToDoApp.Services
     {
         private static readonly string connectionString = "Data Source=todoapp.db";
 
-        public static List<Category> GetCategories(int userId)
+        public static async Task<List<Category>> GetCategoriesAsync(int userId)
         {
             var categories = new List<Category>();
             using (var connection = new SQLiteConnection(connectionString))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 var command = connection.CreateCommand();
-                command.CommandText = "SELECT * FROM Categories WHERE UserId = @userId";
+                command.CommandText = "SELECT CategoryId, UserId, CategoryName FROM Categories WHERE UserId = @userId";
                 command.Parameters.AddWithValue("@userId", userId);
 
-                using (var reader = command.ExecuteReader())
+                using (var reader = await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         categories.Add(new Category
                         {
@@ -34,16 +35,16 @@ namespace ToDoApp.Services
             return categories;
         }
 
-        public static void AddCategory(int userId, string categoryName)
+        public static async Task AddCategoryAsync(int userId, string categoryName)
         {
             using (var connection = new SQLiteConnection(connectionString))
             {
-                connection.Open();
+                await connection.OpenAsync();
                 var command = connection.CreateCommand();
                 command.CommandText = "INSERT INTO Categories (UserId, CategoryName) VALUES (@userId, @categoryName)";
                 command.Parameters.AddWithValue("@userId", userId);
                 command.Parameters.AddWithValue("@categoryName", categoryName);
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
             }
         }
     }

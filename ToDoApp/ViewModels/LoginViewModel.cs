@@ -35,7 +35,6 @@ namespace ToDoApp.ViewModels
                     Application.Current.MainWindow = mainWindow;
                     mainWindow.Show();
 
-                    // Закрываем окно входа
                     foreach (Window window in Application.Current.Windows)
                     {
                         if (window is LoginWindow)

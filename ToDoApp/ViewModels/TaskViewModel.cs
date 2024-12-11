@@ -13,6 +13,9 @@ namespace ToDoApp.ViewModels
         private User currentUser;
         private Category? selectedCategory;
 
+        // Новое свойство для приветствия
+        public string GreetingMessage => $"Hello, {currentUser.Username}!";
+
         public ObservableCollection<Category> Categories { get; set; } = new ObservableCollection<Category>();
         public ObservableCollection<TaskItem> Tasks { get; set; } = new ObservableCollection<TaskItem>();
 
@@ -33,11 +36,19 @@ namespace ToDoApp.ViewModels
             }
         }
 
+        // Команды для категорий
         public ICommand AddCategoryCommand => new RelayCommand(AddCategory);
+        public ICommand EditCategoryCommand => new RelayCommand(EditCategory, () => SelectedCategory != null);
+        public ICommand DeleteCategoryCommand => new RelayCommand(DeleteCategory, () => SelectedCategory != null);
+
+        // Команды для задач
         public ICommand AddTaskCommand => new RelayCommand(AddTask);
         public ICommand CompleteTaskCommand => new RelayCommand<object>(CompleteTask);
         public ICommand EditTaskCommand => new RelayCommand<object>(EditTask);
         public ICommand DeleteTaskCommand => new RelayCommand<object>(DeleteTask);
+
+        // Дополнительный функционал - Logout
+        public ICommand LogoutCommand => new RelayCommand(Logout);
 
         private async void LoadCategories()
         {
@@ -73,6 +84,42 @@ namespace ToDoApp.ViewModels
             }
         }
 
+        private async void EditCategory()
+        {
+            if (SelectedCategory != null)
+            {
+                var dialog = new InputDialog("Edit category name:")
+                {
+                    ResponseText = SelectedCategory.CategoryName
+                };
+                if (dialog.ShowDialog() == true)
+                {
+                    var newName = dialog.ResponseText;
+                    await CategoryService.UpdateCategoryAsync(SelectedCategory.CategoryId, newName);
+                    SelectedCategory.CategoryName = newName;
+                    // Обновим список категорий вручную, если нужно:
+                    // LoadCategories(); или просто OnPropertyChanged("Categories")
+                    OnPropertyChanged(nameof(Categories));
+                }
+            }
+        }
+
+        private async void DeleteCategory()
+        {
+            if (SelectedCategory != null)
+            {
+                var result = MessageBox.Show("Are you sure you want to delete this category and all its tasks?",
+                                             "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
+                {
+                    await CategoryService.DeleteCategoryAsync(SelectedCategory.CategoryId);
+                    Categories.Remove(SelectedCategory);
+                    SelectedCategory = null;
+                    Tasks.Clear();
+                }
+            }
+        }
+
         private async void AddTask()
         {
             if (selectedCategory != null)
@@ -97,7 +144,8 @@ namespace ToDoApp.ViewModels
             {
                 task.IsCompleted = true;
                 await TaskService.MarkTaskAsCompletedAsync(task.TaskId);
-                Tasks.Remove(task);
+                // Обновляем задачи, если нужно
+                OnPropertyChanged(nameof(Tasks));
             }
         }
 
@@ -125,6 +173,15 @@ namespace ToDoApp.ViewModels
                 await TaskService.DeleteTaskAsync(task.TaskId);
                 Tasks.Remove(task);
             }
+        }
+
+        private void Logout()
+        {
+            // Закрываем текущее окно (MainWindow) и открываем LoginWindow
+            var loginWindow = new LoginWindow();
+            loginWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = loginWindow;
         }
     }
 }

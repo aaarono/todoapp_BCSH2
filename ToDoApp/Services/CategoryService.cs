@@ -47,5 +47,30 @@ namespace ToDoApp.Services
                 await command.ExecuteNonQueryAsync();
             }
         }
+
+        public static async Task UpdateCategoryAsync(int categoryId, string newName)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                var command = connection.CreateCommand();
+                command.CommandText = "UPDATE Categories SET CategoryName = @newName WHERE CategoryId = @categoryId";
+                command.Parameters.AddWithValue("@newName", newName);
+                command.Parameters.AddWithValue("@categoryId", categoryId);
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+
+        public static async Task DeleteCategoryAsync(int categoryId)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                var command = connection.CreateCommand();
+                command.CommandText = "DELETE FROM Categories WHERE CategoryId = @categoryId";
+                command.Parameters.AddWithValue("@categoryId", categoryId);
+                await command.ExecuteNonQueryAsync();
+            }
+        }
     }
 }

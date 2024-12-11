@@ -3,41 +3,78 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ToDoApp.Views"
+        xmlns:local="clr-namespace:ToDoApp.Views" xmlns:viewmodels="clr-namespace:ToDoApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:TaskViewModel}"
         mc:Ignorable="d"
         Title="ToDoApp" Height="600" Width="800">
-    <Grid Background="Gray">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5,2"/>
+            <Setter Property="Background" Value="#FF444444"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="HeaderTextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FF303030" Offset="0.0"/>
+                <GradientStop Color="#FF202020" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Панель категорий -->
-        <StackPanel Grid.Column="0" Background="DarkGray" VerticalAlignment="Stretch">
-            <TextBlock Text="Hello, User!" FontSize="16" Margin="10"/>
-            <ListBox ItemsSource="{Binding Categories}" DisplayMemberPath="CategoryName" SelectedItem="{Binding SelectedCategory}" Margin="10"/>
-            <Button Content="Add Category" Command="{Binding AddCategoryCommand}" Margin="10"/>
+        <StackPanel Grid.Column="0" Background="#FF383838" VerticalAlignment="Stretch">
+            <TextBlock Text="{Binding GreetingMessage}" Style="{StaticResource HeaderTextBlock}"/>
+
+            <ListBox ItemsSource="{Binding Categories}" DisplayMemberPath="CategoryName" 
+                     SelectedItem="{Binding SelectedCategory}" Margin="10"
+                     Background="#FF2C2C2C" Foreground="White"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Add" Command="{Binding AddCategoryCommand}" Width="60"/>
+                <Button Content="Edit" Command="{Binding EditCategoryCommand}" Width="60"/>
+                <Button Content="Delete" Command="{Binding DeleteCategoryCommand}" Width="60"/>
+            </StackPanel>
+
+            <Button Content="Logout" Command="{Binding LogoutCommand}" Margin="10" HorizontalAlignment="Center" Width="200"/>
         </StackPanel>
 
-        <!-- Панель задач -->
         <StackPanel Grid.Column="1">
-            <TextBlock Text="Tasks" FontSize="20" Margin="10"/>
-            <ListBox ItemsSource="{Binding Tasks}">
+            <TextBlock Text="Tasks" Style="{StaticResource HeaderTextBlock}"/>
+            <ListBox ItemsSource="{Binding Tasks}" Background="#FF2C2C2C" Foreground="White" Margin="10">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox Content="{Binding TaskName}" IsChecked="{Binding IsCompleted, Mode=TwoWay}"
+                                      VerticalAlignment="Center"
+                                      Margin="5,0"
+                                      ToolTip="Mark as completed"
                                       Command="{Binding DataContext.CompleteTaskCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                      CommandParameter="{Binding}" />
-                            <Button Content="Edit" Command="{Binding DataContext.EditTaskCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                    CommandParameter="{Binding}" Margin="5,0"/>
-                            <Button Content="Delete" Command="{Binding DataContext.DeleteTaskCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                    CommandParameter="{Binding}" Margin="5,0"/>
+                                      CommandParameter="{Binding}"/>
+                            <Button Content="Edit"
+                                    Command="{Binding DataContext.EditTaskCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                    CommandParameter="{Binding}" />
+                            <Button Content="Delete"
+                                    Command="{Binding DataContext.DeleteTaskCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                    CommandParameter="{Binding}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Button Content="Add Task" Command="{Binding AddTaskCommand}" Margin="10"/>
+            <Button Content="Add Task" Command="{Binding AddTaskCommand}" Margin="10" HorizontalAlignment="Left"/>
         </StackPanel>
     </Grid>
 </Window>

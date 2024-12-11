@@ -6,17 +6,27 @@
         xmlns:local="clr-namespace:ToDoApp.Views"
         mc:Ignorable="d"
         Title="ToDoApp" Height="400" Width="600">
-    <Grid Background="Black">
-        <TextBlock Text="ToDoApp" FontSize="30" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0"/>
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FF303030" Offset="0.0"/>
+                <GradientStop Color="#FF202020" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBox Width="200" Margin="0,5" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="ToDoApp" FontSize="30" Foreground="White" HorizontalAlignment="Center" />
 
-            <!-- Удаляем обработчик события PasswordChanged -->
-            <PasswordBox Width="200" Margin="0,5" Name="PasswordBox" />
+            <TextBox Width="200" Margin="5"
+                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
+
+            <PasswordBox Width="200" Margin="5" x:Name="PasswordBox"
+                         Tag="{Binding Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Sign In" Width="80" Margin="5" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=PasswordBox}" />
-                <Button Content="Sign Up" Width="80" Margin="5" Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=PasswordBox}" />
+                <Button Content="Sign In" Width="80" Margin="5"
+                        Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=PasswordBox}" />
+                <Button Content="Sign Up" Width="80" Margin="5"
+                        Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=PasswordBox}" />
             </StackPanel>
         </StackPanel>
     </Grid>
